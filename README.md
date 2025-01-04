@@ -139,6 +139,46 @@ If you encounter a permission error during packet capture:
 
 Ensure you are running the command with sudo.
 
+How to Use Packet Vision on Windows
+Install Python and Required Libraries
+
+Make sure you have Python 3.8 or higher installed.
+Install the required Python packages using:
+
+
+pip install -r requirements.txt
+
+Install Npcap
+
+Npcap is required for packet capturing on Windows.
+Download and install it from the official website: Npcap.
+During installation, make sure to allow "WinPcap API compatibility mode."
+Find the Correct Network Interface
+
+Open Command Prompt and run:
+
+ipconfig
+
+Look for the active adapter in the output. For example:
+
+Wireless LAN adapter Wi-Fi:
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::1
+   IPv4 Address. . . . . . . . . . . : 192.168.1.10
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.1.1
+The interface name in this case is likely Wi-Fi.
+
+Example Commands on Windows
+Capture Live Packets:
+
+
+python main.py --capture --interface "Wi-Fi" --count 50 --output captured_packets.pcap
+Analyze Packets:
+
+
+python main.py --analyze --input captured_packets.pcap
+
 Missing Dependencies
 
 If Python libraries are missing, ensure you have installed the dependencies:
