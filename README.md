@@ -26,7 +26,8 @@ Installation
 
 Clone the repository:
 
-git clone https://github.com/your-repository/packet-vision.git
+git clone https://github.com/hafizsharjeel/Packet-vision.git
+
 cd packet-vision
 
 Set up a virtual environment and install dependencies:
