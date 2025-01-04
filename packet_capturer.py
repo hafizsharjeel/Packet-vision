@@ -22,18 +22,27 @@ def save_packets(packets, filename="captured_packets.pcap"):
     except Exception as e:
         raise ValueError(f"Error saving packets: {e}")
 
-def packets_to_dataframe(packets):
-    """Convert packets to a DataFrame."""
+def packets_to_dataframe(packets_or_file):
+    """Convert packets to a DataFrame or load from a .pcap file."""
     data = []
-    for packet in packets:
-        try:
-            data.append({
-                "Time": packet.sniff_time,
-                "Source": packet.ip.src if hasattr(packet, "ip") else "N/A",
-                "Destination": packet.ip.dst if hasattr(packet, "ip") else "N/A",
-                "Protocol": packet.highest_layer,
-                "Length": packet.length,
-            })
-        except AttributeError:
-            continue
-    return pd.DataFrame(data)
+    try:
+        if isinstance(packets_or_file, list):  # Handle live captured packets
+            packets = packets_or_file
+        else:  # Handle .pcap file
+            capture = pyshark.FileCapture(packets_or_file)
+            packets = list(capture)
+
+        for packet in packets:
+            try:
+                data.append({
+                    "Time": packet.sniff_time,
+                    "Source": packet.ip.src if hasattr(packet, "ip") else "N/A",
+                    "Destination": packet.ip.dst if hasattr(packet, "ip") else "N/A",
+                    "Protocol": packet.highest_layer,
+                    "Length": packet.length,
+                })
+            except AttributeError:
+                continue
+        return pd.DataFrame(data)
+    except Exception as e:
+        raise ValueError(f"Error converting packets to DataFrame: {e}")
