@@ -164,10 +164,15 @@ Look for the active adapter in the output. For example:
 
 Wireless LAN adapter Wi-Fi:
    Connection-specific DNS Suffix  . :
+   
    Link-local IPv6 Address . . . . . : fe80::1
+   
    IPv4 Address. . . . . . . . . . . : 192.168.1.10
+   
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   
    Default Gateway . . . . . . . . . : 192.168.1.1
+   
 The interface name in this case is likely Wi-Fi.
 
 Example Commands on Windows
